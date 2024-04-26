@@ -1,10 +1,10 @@
 import React from 'react';
-import TodoList from './TodoList';
+import Contacts from './Contacts';
 
 function App() {
     return (
         <div className="App">
-            <TodoList />
+            <Contacts />
         </div>
     );
 }
