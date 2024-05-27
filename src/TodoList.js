@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTodo, toggleTodo } from './actions';
+import { addTodo, toggleTodo, fetchTodos } from './actions';
 
 function TodoList() {
     const [inputValue, setInputValue] = useState('');
     const todos = useSelector((state) => state.todos);
+    const loading = useSelector((state) => state.loading);
+    const error = useSelector((state) => state.error);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTodos());
+    }, [dispatch]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -18,6 +24,8 @@ function TodoList() {
     return (
         <div>
             <h1>Todo List</h1>
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
             <ul>
                 {todos.map((todo, index) => (
                     <li
